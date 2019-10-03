@@ -1,0 +1,31 @@
+name: 'Firebase Distribution'
+description: 'GitHub Action that uploads artefacts to Firebase Distribution'
+author: 'Wojciech Zięba <@wzieba>'
+inputs: 
+  appId:
+    description: 'App id can be found on the General Settings page'
+    required: true 
+  token:
+    description: 'Upload token - see Firebase CLI Reference'
+    required: true 
+  file:
+    description: 'Artefact to upload (.apk or .ipa)'
+    required: true
+  groups:
+    description: 'Distribution groups'
+    required: false
+  releaseNotes:
+    description: 'Release notes visible on release page'
+    required: false
+branding:
+  color: 'orange' 
+  icon: 'send'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.app }}
+    - ${{ inputs.token }}
+    - ${{ inputs.groups }}
+    - ${{ inputs.file }}
+    - ${{ inputs.releaseNotes }}

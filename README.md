@@ -50,7 +50,7 @@ jobs:
     - name: build release 
       run: ./gradlew assembleRelease
     - name: upload artefact to Firebase Distribution
-      uses: wzieba/Firebase-Distribute-Github-Action@v1.0.0
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         token: ${{secrets.FIREBASE_TOKEN}}

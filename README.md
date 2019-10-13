@@ -1,4 +1,4 @@
-# Firebase App Distribution Github Action
+# Firebase App Distribution Github Action ![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)
 
 This action uploads artefacts (.apk or .ipa) to Firebase App Distribution.
 

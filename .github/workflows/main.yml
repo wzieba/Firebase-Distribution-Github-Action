@@ -6,10 +6,13 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@master
+      - name: Get sample .apk for test purposes
+        run: wget https://github.com/appium/appium/raw/master/sample-code/apps/ApiDemos-debug.apk
       - name: Upload artefact to Firebase Distribution  
         uses: ./
         with:
-          appId: Test Name 
-          token: Test Token
-          groups: Test Group 
-          file: Test File
+          appId: ${{secrets.FIREBASE_APP_ID}} 
+          token: ${{secrets.FIREBASE_TOKEN}} 
+          groups: Testers 
+          file: ApiDemos-debug.apk
+ 

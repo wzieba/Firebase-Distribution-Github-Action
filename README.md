@@ -1,6 +1,6 @@
-# Firebase Distribution Github Action
+# Firebase App Distribution Github Action ![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)
 
-This action uploads artefacts (.apk or .ipa) to Firebase Distribution.
+This action uploads artefacts (.apk or .ipa) to Firebase App Distribution.
 
 ## Inputs
 
@@ -27,12 +27,10 @@ Release notes visible on release page. If not specified, plugin will add last co
  - author
  - message
 
-
-
 ## Example usage
 
 ```
-name: Build, code quality, tests 
+name: Build & upload to Firebase App Distribution 
 
 on: [push]
 
@@ -49,7 +47,7 @@ jobs:
         java-version: 1.8
     - name: build release 
       run: ./gradlew assembleRelease
-    - name: upload artefact to Firebase Distribution
+    - name: upload artefact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}

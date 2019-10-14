@@ -1,5 +1,5 @@
-name: 'Firebase Distribution'
-description: 'GitHub Action that uploads artefacts to Firebase Distribution'
+name: 'Firebase App Distribution'
+description: 'GitHub Action that uploads artefacts to Firebase App Distribution'
 author: 'Wojciech Zięba <@wzieba>'
 inputs: 
   appId:
@@ -23,9 +23,3 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.app }}
-    - ${{ inputs.token }}
-    - ${{ inputs.groups }}
-    - ${{ inputs.file }}
-    - ${{ inputs.releaseNotes }}

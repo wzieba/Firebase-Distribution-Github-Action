@@ -7,5 +7,5 @@ else
         MESSAGE=${INPUT_RELEASENOTES}
 fi
 
-firebase appdistribution:distribute "$INPUT_FILE" --app "$INPUT_APPID" --token "$INPUT_TOKEN" --groups "$INPUT_GROUPS" --release-notes "$MESSAGE"
+firebase appdistribution:distribute "$INPUT_FILE" --app "$INPUT_APPID" --token "$INPUT_TOKEN" --groups "$INPUT_GROUPS" --release-notes "$MESSAGE" --debug
 

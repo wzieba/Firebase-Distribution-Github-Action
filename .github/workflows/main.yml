@@ -15,4 +15,13 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}} 
           groups: Testers 
           file: ApiDemos-debug.apk
+      - name: Upload artefact to Firebase Distribution with debug
+        uses: ./
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: Testers
+          file: ApiDemos-debug.apk
+          debug: true
+
  

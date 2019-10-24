@@ -1,5 +1,5 @@
 name: 'Firebase App Distribution'
-description: 'GitHub Action that uploads artefacts to Firebase App Distribution'
+description: 'GitHub Action that uploads artifacts to Firebase App Distribution'
 author: 'Wojciech Zięba <@wzieba>'
 inputs:
   appId:
@@ -9,7 +9,7 @@ inputs:
     description: 'Upload token - see Firebase CLI Reference'
     required: true
   file:
-    description: 'Artefact to upload (.apk or .ipa)'
+    description: 'Artifact to upload (.apk or .ipa)'
     required: true
   groups:
     description: 'Distribution groups'
@@ -18,7 +18,7 @@ inputs:
     description: 'Release notes visible on release page'
     required: false
   debug:
-    description: 'Flag you can include to print verbose log output'
+    description: 'Flag that can included to print verbose log output.'
     required: false
     default: false
 branding:

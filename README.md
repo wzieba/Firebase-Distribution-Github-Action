@@ -1,6 +1,9 @@
-# Firebase App Distribution Github Action ![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)
+# Firebase App Distribution Github Action
 
-This action uploads artefacts (.apk or .ipa) to Firebase App Distribution.
+<a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/actions">![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
+<a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/releases">![](https://img.shields.io/github/v/release/wzieba/Firebase-Distribution-Github-Action)</a>
+
+This action uploads artifacts (.apk or .ipa) to Firebase App Distribution.
 
 ## Inputs
 
@@ -14,7 +17,7 @@ This action uploads artefacts (.apk or .ipa) to Firebase App Distribution.
 
 ### `file`
 
-**Required** Artefact to upload (.apk or .ipa)
+**Required** Artifact to upload (.apk or .ipa)
 
 ### `groups`
 
@@ -26,8 +29,12 @@ Release notes visible on release page. If not specified, plugin will add last co
  - hash
  - author
  - message
+ 
+### `debug`
 
-## Example usage
+Flag that can be included to print verbose log output. Default value is `false`
+
+## Sample usage
 
 ```
 name: Build & upload to Firebase App Distribution 
@@ -47,8 +54,8 @@ jobs:
         java-version: 1.8
     - name: build release 
       run: ./gradlew assembleRelease
-    - name: upload artefact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
+    - name: upload artifact to Firebase App Distribution
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.1.1
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         token: ${{secrets.FIREBASE_TOKEN}}

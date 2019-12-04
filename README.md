@@ -59,6 +59,6 @@ jobs:
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         token: ${{secrets.FIREBASE_TOKEN}}
-        group: testers
+        groups: testers
         file: app/build/outputs/apk/release/app-release-unsigned.apk
 ```

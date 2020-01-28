@@ -17,6 +17,9 @@ inputs:
   releaseNotes:
     description: 'Release notes visible on release page'
     required: false
+  releaseNotesFile:
+    description: 'Release notes visible on release page'
+    required: false    
   debug:
     description: 'Flag that can included to print verbose log output.'
     required: false

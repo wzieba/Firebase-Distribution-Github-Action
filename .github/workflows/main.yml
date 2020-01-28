@@ -8,9 +8,14 @@ jobs:
         uses: actions/checkout@master
       - name: Get sample .apk for test purposes
         run: wget https://github.com/appium/appium/raw/master/sample-code/apps/ApiDemos-debug.apk
-      - name: Get sample release note file
-        run: wget https://raw.githubusercontent.com/wzieba/Firebase-Distribution-Github-Action/master/README.md
       - name: Upload artifact to Firebase Distribution
+        uses: ./
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}} 
+          token: ${{secrets.FIREBASE_TOKEN}} 
+          groups: Testers 
+          file: ApiDemos-debug.apk
+      - name: Upload artifact to Firebase Distribution with release note file
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}} 

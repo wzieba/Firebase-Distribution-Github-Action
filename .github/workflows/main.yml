@@ -32,5 +32,3 @@ jobs:
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
           debug: true
-
- 

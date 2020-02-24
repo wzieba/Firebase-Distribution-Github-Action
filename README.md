@@ -1,4 +1,4 @@
-# Firebase App Distribution Github Action
+# Firebase App Distribution Github Action.
 
 <a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/actions">![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
 <a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/releases">![](https://img.shields.io/github/v/release/wzieba/Firebase-Distribution-Github-Action)</a>

@@ -1,5 +1,5 @@
 name: Sample workflow for Firebase Distribution action
-on: [push]
+on: [push, pull_request]
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -15,13 +15,20 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}} 
           groups: Testers 
           file: ApiDemos-debug.apk
+      - name: Upload artifact to Firebase Distribution with release note file
+        uses: ./
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}} 
+          token: ${{secrets.FIREBASE_TOKEN}} 
+          groups: Testers 
+          releaseNotesFile: README.md
+          file: ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution with debug
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
+          releaseNotesFile: README.md
           file: ApiDemos-debug.apk
           debug: true
-
- 

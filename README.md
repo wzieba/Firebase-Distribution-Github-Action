@@ -30,6 +30,10 @@ Release notes visible on release page. If not specified, plugin will add last co
  - author
  - message
  
+### `releaseNotesFile`
+
+Specify the release note path to a plain text file.
+
 ### `debug`
 
 Flag that can be included to print verbose log output. Default value is `false`

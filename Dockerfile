@@ -1,9 +1,9 @@
-FROM node:12.10.0-alpine
+FROM node:14.4.0-alpine3.12
 
 WORKDIR /app
 COPY . /app
 
-RUN npm install -g firebase-tools \
+RUN yarn global add firebase-tools \
     && apk update \
     && apk add git 
 

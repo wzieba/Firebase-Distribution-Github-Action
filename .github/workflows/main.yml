@@ -1,5 +1,5 @@
 name: Sample workflow for Firebase Distribution action
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   run:
     runs-on: ubuntu-latest

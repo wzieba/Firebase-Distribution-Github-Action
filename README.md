@@ -13,7 +13,7 @@ This action uploads artifacts (.apk or .ipa) to Firebase App Distribution.
 
 ### `token`
 
-**Required** Upload token - see Firebase CLI Reference
+run `firebase login:ci` command and get your token.
 
 ### `file`
 

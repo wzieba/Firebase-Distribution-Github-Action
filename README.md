@@ -11,9 +11,16 @@ This action uploads artifacts (.apk or .ipa) to Firebase App Distribution.
 
 **Required** App id can be found on the General Settings page
 
+## Either Firebase Token or Service Credentials File, one is enough.
+
 ### `token`
 
 **Required** Upload token - see Firebase CLI Reference (tldr; run `firebase login:ci` command to get your token).
+
+### `serviceCredentialsFile`
+
+**Required** Service Credentials File - The path or HTTP URL to your [service account](https://firebase.google.com/docs/app-distribution/android/distribute-gradle#authenticate_using_a_service_account) private key JSON file.
+Required only if you use service account authentication.
 
 ### `file`
 

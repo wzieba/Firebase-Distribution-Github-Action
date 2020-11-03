@@ -4,23 +4,23 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@master
       - name: Get sample .apk for test purposes
         run: wget https://github.com/appium/appium/raw/master/sample-code/apps/ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution
         uses: ./
         with:
-          appId: ${{secrets.FIREBASE_APP_ID}} 
-          token: ${{secrets.FIREBASE_TOKEN}} 
-          groups: Testers 
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: Testers
           file: ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution with release note file
         uses: ./
         with:
-          appId: ${{secrets.FIREBASE_APP_ID}} 
-          token: ${{secrets.FIREBASE_TOKEN}} 
-          groups: Testers 
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: Testers
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution with debug
@@ -32,3 +32,21 @@ jobs:
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
           debug: true
+      - name: Fetch credential file from secrets
+        id: fetch_credential_file
+        uses: timheuer/base64-to-file@v1
+        with:
+          encodedString: ${{ secrets.CREDENTIAL_FILE }}
+          fileName: 'credential_file.json'
+      - name: Move credential file to repository location
+        run: mv ${{ steps.fetch_credential_file.outputs.filePath }} /home/runner/work/Firebase-Distribution-Github-Action/Firebase-Distribution-Github-Action/
+      - name: Upload artifact to Firebase Distribution using credential file
+        uses: ./
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          groups: Testers
+          releaseNotesFile: README.md
+          file: ApiDemos-debug.apk
+          debug: true
+          serviceCredentialsFile: credential_file.json
+

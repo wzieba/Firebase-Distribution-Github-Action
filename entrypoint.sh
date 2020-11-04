@@ -14,11 +14,18 @@ if [[ ${INPUT_RELEASENOTESFILE} ]]; then
         RELEASE_NOTES_FILE=${INPUT_RELEASENOTESFILE}
 fi
 
+if [ -n "${INPUT_SERVICECREDENTIALSFILE}" ] ; then
+    export GOOGLE_APPLICATION_CREDENTIALS="${INPUT_SERVICECREDENTIALSFILE}"
+fi
+
+if [ -n "${INPUT_TOKEN}" ] ; then
+    export FIREBASE_TOKEN="${INPUT_TOKEN}"
+fi
+
 firebase \
         appdistribution:distribute \
         "$INPUT_FILE" \
         --app "$INPUT_APPID" \
-        --token "$INPUT_TOKEN" \
         --groups "$INPUT_GROUPS" \
         ${RELEASE_NOTES:+ --release-notes "${RELEASE_NOTES}"} \
         ${INPUT_RELEASENOTESFILE:+ --release-notes-file "${RELEASE_NOTES_FILE}"} \

@@ -3,7 +3,7 @@
 <a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/actions">![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
 <a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/releases">![](https://img.shields.io/github/v/release/wzieba/Firebase-Distribution-Github-Action)</a>
 
-This action uploads artifacts (.apk or .ipa) to Firebase App Distribution.
+This action uploads artifacts (.apk,.aab or .ipa) to Firebase App Distribution.
 
 ## Inputs
 
@@ -24,7 +24,7 @@ Required only if you use service account authentication.
 
 ### `file`
 
-**Required** Artifact to upload (.apk or .ipa)
+**Required** Artifact to upload (.apk, .aab or .ipa)
 
 ### `groups`
 

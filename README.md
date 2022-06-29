@@ -58,15 +58,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: set up JDK 1.8
-      uses: actions/setup-java@v1
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
       with:
-        java-version: 1.8
+        java-version: 11
+        distribution: 'temurin'
+        cache: gradle
     - name: build release 
       run: ./gradlew assembleRelease
     - name: upload artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      uses: wzieba/Firebase-Distribution-Github-Action@v1.3.3
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         token: ${{secrets.FIREBASE_TOKEN}}

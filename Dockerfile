@@ -3,9 +3,9 @@ FROM node:18-alpine3.15
 WORKDIR /app
 COPY . /app
 
-RUN yarn global add firebase-tools \
-    && apk update \
-    && apk add git 
+RUN apk update \
+    && apk add git g++ make python3 \
+    && yarn global add firebase-tools
 
 RUN chmod +x /app/entrypoint.sh
 

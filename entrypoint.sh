@@ -27,6 +27,7 @@ if [ -n "${INPUT_SERVICECREDENTIALSFILECONTENT}" ] ; then
 fi
 
 if [ -n "${INPUT_TOKEN}" ] ; then
+    echo "⚠ This action will stop working with the next future major version of `firebase-tools`! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
     export FIREBASE_TOKEN="${INPUT_TOKEN}"
 fi
 
@@ -39,3 +40,6 @@ firebase \
         ${INPUT_RELEASENOTESFILE:+ --release-notes-file "${RELEASE_NOTES_FILE}"} \
         $( (( $INPUT_DEBUG )) && printf %s '--debug' )
 
+if [ -n "${INPUT_TOKEN}" ] ; then
+    echo "⚠ This action will stop working with the next future major version of `firebase-tools`! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
+fi

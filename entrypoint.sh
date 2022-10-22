@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Required since https://github.blog/2022-04-12-git-security-vulnerability-announced
 git config --global --add safe.directory $GITHUB_WORKSPACE
@@ -19,6 +19,11 @@ fi
 
 if [ -n "${INPUT_SERVICECREDENTIALSFILE}" ] ; then
     export GOOGLE_APPLICATION_CREDENTIALS="${INPUT_SERVICECREDENTIALSFILE}"
+fi
+
+if [ -n "${INPUT_SERVICECREDENTIALSFILECONTENT}" ] ; then
+    cat <<< "${INPUT_SERVICECREDENTIALSFILECONTENT}" > service_credentials_content.json
+    export GOOGLE_APPLICATION_CREDENTIALS="service_credentials_content.json"
 fi
 
 if [ -n "${INPUT_TOKEN}" ] ; then

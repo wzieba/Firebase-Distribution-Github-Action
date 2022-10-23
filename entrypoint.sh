@@ -6,6 +6,8 @@ git config --global --add safe.directory $GITHUB_WORKSPACE
 RELEASE_NOTES=""
 RELEASE_NOTES_FILE=""
 
+TOKEN_DEPRECATED_WARNING_MESSAGE="⚠ This action will stop working with the next future major version of firebase-tools! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
+
 if [[ -z ${INPUT_RELEASENOTES} ]]; then
         RELEASE_NOTES="$(git log -1 --pretty=short)"
 else
@@ -27,7 +29,7 @@ if [ -n "${INPUT_SERVICECREDENTIALSFILECONTENT}" ] ; then
 fi
 
 if [ -n "${INPUT_TOKEN}" ] ; then
-    echo "⚠ This action will stop working with the next future major version of `firebase-tools`! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
+    echo ${TOKEN_DEPRECATED_WARNING_MESSAGE}
     export FIREBASE_TOKEN="${INPUT_TOKEN}"
 fi
 
@@ -41,5 +43,5 @@ firebase \
         $( (( $INPUT_DEBUG )) && printf %s '--debug' )
 
 if [ -n "${INPUT_TOKEN}" ] ; then
-    echo "⚠ This action will stop working with the next future major version of `firebase-tools`! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
+    echo ${TOKEN_DEPRECATED_WARNING_MESSAGE}
 fi

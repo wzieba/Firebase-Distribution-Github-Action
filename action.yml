@@ -9,7 +9,10 @@ inputs:
     description: 'Upload token - see Firebase CLI Reference'
     required: false
   serviceCredentialsFile:
-    description: 'Service credential file'
+    description: 'Service credentials file'
+    required: false
+  serviceCredentialsFileContent:
+    description: 'Content of service credentials file'
     required: false
   file:
     description: 'Artifact to upload (.apk or .ipa)'

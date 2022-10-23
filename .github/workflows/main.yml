@@ -49,4 +49,13 @@ jobs:
           file: ApiDemos-debug.apk
           debug: true
           serviceCredentialsFile: credential_file.json
+      - name: Upload artifact to Firebase Distribution using credential file content
+        uses: ./
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          groups: Testers
+          releaseNotesFile: README.md
+          file: ApiDemos-debug.apk
+          debug: true
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
 

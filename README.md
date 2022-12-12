@@ -35,6 +35,10 @@ Required only if you don't use `serviceCredentialsFileContent`.
 
 Distribution groups
 
+### `testers`
+
+Distribution testers. The email address of the testers you want to invite.
+
 ### `releaseNotes`
 
 Release notes visible on release page. If not specified, plugin will add last commit's

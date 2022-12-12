@@ -20,6 +20,9 @@ inputs:
   groups:
     description: 'Distribution groups'
     required: false
+  testers:
+    description: 'Distribution testers'
+    required: false
   releaseNotes:
     description: 'Release notes visible on release page'
     required: false

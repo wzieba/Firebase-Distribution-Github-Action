@@ -38,6 +38,7 @@ firebase \
         "$INPUT_FILE" \
         --app "$INPUT_APPID" \
         --groups "$INPUT_GROUPS" \
+        --testers "$INPUT_TESTERS" \
         ${RELEASE_NOTES:+ --release-notes "${RELEASE_NOTES}"} \
         ${INPUT_RELEASENOTESFILE:+ --release-notes-file "${RELEASE_NOTES_FILE}"} \
         $( (( $INPUT_DEBUG )) && printf %s '--debug' )

@@ -1,0 +1,22 @@
+name: Action to publish a new version of the Firebase-Distribution-GitHub-Action Docker image to GitHub Container Registry
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Firebase-Distribution-GitHub-Action Docker image
+        run: |
+            docker build . --tag ghcr.io/vlazdra/firebase-distribution-github-action:latest
+            docker run ghcr.io/vlazdra/firebase-distribution-github-action:latest
+            docker push ghcr.io/vlazdra/firebase-distribution-github-action:latest

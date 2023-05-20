@@ -38,4 +38,4 @@ branding:
   icon: 'send'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/vlazdra/firebase-distribution-github-action/firebase-distribution-github-action:latest'

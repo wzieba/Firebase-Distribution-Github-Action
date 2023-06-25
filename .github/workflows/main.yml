@@ -66,4 +66,23 @@ jobs:
           testers: "test@test.com, test2@test2.com"
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
+      - name: Failure during upload should set failure in action step
+        id: fail_check
+        uses: ./
+        continue-on-error: true
+        with:
+          appId: invalid_app_id
+          token: ${{secrets.FIREBASE_TOKEN}}
+          testers: "test@test.com, test2@test2.com"
+          releaseNotesFile: README.md
+          file: ApiDemos-debug.apk
+      - name: Check if previous step failed as expected
+        run: |
+          if [[ "${{ steps.fail_check.outcome }}" == 'failure' ]]; then
+            echo "Previous step failed as expected"
+            exit 0
+          else
+            echo "Previous step succeeded, when it shouldn't"
+            exit 1
+          fi
 

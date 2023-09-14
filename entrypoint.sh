@@ -33,7 +33,7 @@ if [ -n "${INPUT_TOKEN}" ] ; then
     export FIREBASE_TOKEN="${INPUT_TOKEN}"
 fi
 
-firebase \
+OUTPUT = $(firebase \
         appdistribution:distribute \
         "$INPUT_FILE" \
         --app "$INPUT_APPID" \
@@ -41,4 +41,31 @@ firebase \
         --testers "$INPUT_TESTERS" \
         ${RELEASE_NOTES:+ --release-notes "${RELEASE_NOTES}"} \
         ${INPUT_RELEASENOTESFILE:+ --release-notes-file "${RELEASE_NOTES_FILE}"} \
-        $( (( $INPUT_DEBUG )) && printf %s '--debug' )
+	$( (( $INPUT_DEBUG )) && printf %s '--debug' ))
+
+CMD_STATUS=$?
+
+if [ $CMD_STATUS -eq 0 ]; then
+    # extract the required URLs
+    CONSOLE_URI=$(echo "$OUTPUT" | grep -o 'View this release in the Firebase console: .*' | sed -e 's/View this release in the Firebase console: //')
+    TESTING_URI=$(echo "$OUTPUT" | grep -o 'Share this release with testers who have access: .*' | sed -e 's/Share this release with testers who have access: //')
+    BINARY_URI=$(echo "$OUTPUT" | grep -o 'Download the release binary (link expires in 1 hour): .*' | sed -e 's/Download the release binary (link expires in 1 hour): //')
+
+    # remove the trailing '>' character
+    CONSOLE_URI=${CONSOLE_URI%?}
+    TESTING_URI=${TESTING_URI%?}
+    BINARY_URI=${BINARY_URI%?}
+
+    # store in environment variables
+    export CONSOLE_URI
+    export TESTING_URI
+    export BINARY_URI
+
+    # test by echoing the variables
+    echo "Firebase Console URI: $CONSOLE_URI"
+    echo "Testing URI: $TESTING_URI"
+    echo "Binary Download URI: $BINARY_URI"
+else
+    exit $CMD_STATUS
+fi
+

@@ -50,6 +50,8 @@ firebase \
 
     while read -r line
     do
+	echo $line
+
         if [[ $line == *"View this release in the Firebase console"* ]]; then
             CONSOLE_URI=$(echo "$line" | sed -e 's/View this release in the Firebase console: //')
             CONSOLE_URI=${CONSOLE_URI%?}

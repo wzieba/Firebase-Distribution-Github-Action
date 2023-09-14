@@ -50,20 +50,18 @@ firebase \
 
     while read -r line
     do
-	echo $line
-
-        if [[ $line == *"View this release in the Firebase console"* ]]; then
-            CONSOLE_URI=$(echo "$line" | sed -e 's/View this release in the Firebase console: //')
-            CONSOLE_URI=${CONSOLE_URI%?}
+    	echo $line
+        
+	if [[ $line == *"View this release in the Firebase console"* ]]; then
+            CONSOLE_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+	    echo "FIREBASE_CONSOLE_URI=$CONSOLE_URI" >> "$GITHUB_OUTPUT"
             export CONSOLE_URI
         elif [[ $line == *"Share this release with testers who have access"* ]]; then
-            TESTING_URI=$(echo "$line" | sed -e 's/Share this release with testers who have access: //')
-            TESTING_URI=${TESTING_URI%?}
-            export TESTING_URI
+            TESTING_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+	    echo "TESTING_URI=$TESTING_URI" >> "$GITHUB_OUTPUT"
         elif [[ $line == *"Download the release binary"* ]]; then
-            BINARY_URI=$(echo "$line" | sed -e 's/Download the release binary (link expires in 1 hour): //')
-            BINARY_URI=${BINARY_URI%?}
-            export BINARY_URI
+            BINARY_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+	    echo "BINARY_DOWNLOAD_URI=$BINARY_URI" >> "$GITHUB_OUTPUT"
         fi
     done
 
@@ -72,9 +70,5 @@ firebase \
         exit 1
     fi
 
-    # test by echoing the variables
-    echo "Firebase Console URI: $CONSOLE_URI"
-    echo "Testing URI: $TESTING_URI"
-    echo "Binary Download URI: $BINARY_URI"
 }
 

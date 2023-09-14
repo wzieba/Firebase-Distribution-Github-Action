@@ -9,12 +9,15 @@ jobs:
       - name: Get sample .apk for test purposes
         run: wget https://github.com/appium/appium/raw/1.10/sample-code/apps/ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution
+        id: testing_outputs
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           file: ApiDemos-debug.apk
+      - name: Print all outputs of previous step
+        run: ${{join(steps.testing_outputs.outputs.*, '\n')}}
       - name: Upload artifact to Firebase Distribution with release note file
         uses: ./
         with:

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+  
 # Required since https://github.blog/2022-04-12-git-security-vulnerability-announced
 git config --global --add safe.directory $GITHUB_WORKSPACE
 
@@ -64,11 +66,6 @@ firebase \
 	    echo "BINARY_DOWNLOAD_URI=$BINARY_URI" >> "$GITHUB_OUTPUT"
         fi
     done
-
-    # if firebase deploy failed, return error
-    if [ $? -ne 0 ]; then
-        exit 1
-    fi
 
 }
 

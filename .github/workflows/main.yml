@@ -17,7 +17,10 @@ jobs:
           groups: Testers
           file: ApiDemos-debug.apk
       - name: Print all outputs of previous step
-        run: ${{join(steps.testing_outputs.outputs.*, '\n')}}
+        run: |
+          echo ${{steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI}}
+          echo ${{steps.testing_outputs.outputs.TESTING_URI}}
+          echo ${{steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI}}
       - name: Upload artifact to Firebase Distribution with release note file
         uses: ./
         with:

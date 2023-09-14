@@ -33,7 +33,7 @@ if [ -n "${INPUT_TOKEN}" ] ; then
     export FIREBASE_TOKEN="${INPUT_TOKEN}"
 fi
 
-OUTPUT = $(firebase \
+OUTPUT=$(firebase \
         appdistribution:distribute \
         "$INPUT_FILE" \
         --app "$INPUT_APPID" \

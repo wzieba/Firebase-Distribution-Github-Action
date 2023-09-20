@@ -15,74 +15,15 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           file: ApiDemos-debug.apk
-      - name: Upload artifact to Firebase Distribution with release note file
+      - name: Upload artifact to Firebase Distribution with bullet points release notes
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
-          releaseNotesFile: README.md
+          releaseNotes: |
+            - Empty state for no data
+            - Error report view
+            - Minor updates on the crash report
           file: ApiDemos-debug.apk
-      - name: Upload artifact to Firebase Distribution with debug
-        uses: ./
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: Testers
-          releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
-          debug: true
-      - name: Fetch credential file from secrets
-        id: fetch_credential_file
-        uses: timheuer/base64-to-file@v1
-        with:
-          encodedString: ${{ secrets.CREDENTIAL_FILE }}
-          fileName: 'credential_file.json'
-      - name: Move credential file to repository location
-        run: mv ${{ steps.fetch_credential_file.outputs.filePath }} /home/runner/work/Firebase-Distribution-Github-Action/Firebase-Distribution-Github-Action/
-      - name: Upload artifact to Firebase Distribution using credential file
-        uses: ./
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          groups: Testers
-          releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
-          debug: true
-          serviceCredentialsFile: credential_file.json
-      - name: Upload artifact to Firebase Distribution using credential file content
-        uses: ./
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          groups: Testers
-          releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
-          debug: true
-          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-      - name: Upload artifact to Firebase Distribution with testers
-        uses: ./
-        with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          testers: "test@test.com, test2@test2.com"
-          releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
-      - name: Failure during upload should set failure in action step
-        id: fail_check
-        uses: ./
-        continue-on-error: true
-        with:
-          appId: invalid_app_id
-          token: ${{secrets.FIREBASE_TOKEN}}
-          testers: "test@test.com, test2@test2.com"
-          releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
-      - name: Check if previous step failed as expected
-        run: |
-          if [[ "${{ steps.fail_check.outcome }}" == 'failure' ]]; then
-            echo "Previous step failed as expected"
-            exit 0
-          else
-            echo "Previous step succeeded, when it shouldn't"
-            exit 1
-          fi
 

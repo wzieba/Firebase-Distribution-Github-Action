@@ -11,7 +11,7 @@ TOKEN_DEPRECATED_WARNING_MESSAGE="⚠ This action will stop working with the nex
 if [[ -z ${INPUT_RELEASENOTES} ]]; then
         RELEASE_NOTES="$(git log -1 --pretty=short)"
 else
-        RELEASE_NOTES=${INPUT_RELEASENOTES}
+        RELEASE_NOTES="${INPUT_RELEASENOTES}"
 fi
 
 if [[ ${INPUT_RELEASENOTESFILE} ]]; then

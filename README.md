@@ -54,6 +54,20 @@ Specify the release note path to a plain text file.
 
 Flag that can be included to print verbose log output. Default value is `false`
 
+## Outputs
+
+### `FIREBASE_CONSOLE_URI`
+
+Link to uploaded release in the Firebase console.
+
+### `TESTING_URI`
+
+Link to share release with testers who have access.
+
+### `BINARY_DOWNLOAD_URI`
+
+Link to download the release binary (link expires in 1 hour).
+
 ## Sample usage
 
 ```

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o pipefail
+
 # Required since https://github.blog/2022-04-12-git-security-vulnerability-announced
 git config --global --add safe.directory $GITHUB_WORKSPACE
 
@@ -41,4 +43,20 @@ firebase \
         --testers "$INPUT_TESTERS" \
         ${RELEASE_NOTES:+ --release-notes "${RELEASE_NOTES}"} \
         ${INPUT_RELEASENOTESFILE:+ --release-notes-file "${RELEASE_NOTES_FILE}"} \
-        $( (( $INPUT_DEBUG )) && printf %s '--debug' )
+	$( (( $INPUT_DEBUG )) && printf %s '--debug' ) |
+{
+    while read -r line; do
+      echo $line
+
+      if [[ $line == *"View this release in the Firebase console"* ]]; then
+        CONSOLE_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+        echo "FIREBASE_CONSOLE_URI=$CONSOLE_URI" >>"$GITHUB_OUTPUT"
+      elif [[ $line == *"Share this release with testers who have access"* ]]; then
+        TESTING_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+        echo "TESTING_URI=$TESTING_URI" >>"$GITHUB_OUTPUT"
+      elif [[ $line == *"Download the release binary"* ]]; then
+        BINARY_URI=$(echo "$line" | sed -e 's/.*: //' -e 's/^ *//;s/ *$//')
+        echo "BINARY_DOWNLOAD_URI=$BINARY_URI" >>"$GITHUB_OUTPUT"
+      fi
+    done
+}

@@ -9,12 +9,30 @@ jobs:
       - name: Get sample .apk for test purposes
         run: wget https://github.com/appium/appium/raw/1.10/sample-code/apps/ApiDemos-debug.apk
       - name: Upload artifact to Firebase Distribution
+        id: testing_outputs
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           file: ApiDemos-debug.apk
+      - name: Assert outputs of previous step are not empty
+        run: |
+          echo "${{ steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI }}"
+          if [[ -z "${{ steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI }}" ]]; then
+            echo "Console URI is empty" >&2
+            exit 1
+          fi
+          echo "${{ steps.testing_outputs.outputs.TESTING_URI }}"
+          if [[ -z "${{ steps.testing_outputs.outputs.TESTING_URI }}" ]]; then
+            echo "Testing URI is empty" >&2
+            exit 1
+          fi
+          echo "${{ steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI }}"
+          if [[ -z "${{ steps.testing_outputs.outputs.BINARY_DOWNLOAD_URI }}" ]]; then
+            echo "Binary download URI is empty" >&2
+            exit 1
+          fi
       - name: Upload artifact to Firebase Distribution with release note file
         uses: ./
         with:

@@ -70,24 +70,26 @@ Link to download the release binary (link expires in 1 hour).
 
 ## Sample usage
 
-```
+```yaml
 name: Build & upload to Firebase App Distribution 
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: set up JDK 1.8
-      uses: actions/setup-java@v1
+    - uses: actions/checkout@v4
+
+    - name: set up JDK 21
+      uses: actions/setup-java@v4
       with:
-        java-version: 1.8
+        distribution: 'temurin'
+        java-version: '21'
+
     - name: build release 
       run: ./gradlew assembleRelease
+
     - name: upload artifact to Firebase App Distribution
       uses: wzieba/Firebase-Distribution-Github-Action@v1
       with:

@@ -3,7 +3,6 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   run:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -14,9 +13,9 @@ jobs:
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           file: ApiDemos-debug.apk
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Assert outputs of previous step are not empty
         run: |
           echo "${{ steps.testing_outputs.outputs.FIREBASE_CONSOLE_URI }}"
@@ -38,19 +37,19 @@ jobs:
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Upload artifact to Firebase Distribution with debug
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
           groups: Testers
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
           debug: true
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Fetch credential file from secrets
         id: fetch_credential_file
         uses: timheuer/base64-to-file@v1
@@ -81,20 +80,20 @@ jobs:
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
           testers: "test@test.com, test2@test2.com"
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Failure during upload should set failure in action step
         id: fail_check
         uses: ./
         continue-on-error: true
         with:
           appId: invalid_app_id
-          token: ${{secrets.FIREBASE_TOKEN}}
           testers: "test@test.com, test2@test2.com"
           releaseNotesFile: README.md
           file: ApiDemos-debug.apk
+          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Check if previous step failed as expected
         run: |
           if [[ "${{ steps.fail_check.outcome }}" == 'failure' ]]; then
